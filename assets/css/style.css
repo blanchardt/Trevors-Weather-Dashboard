@@ -1,0 +1,9 @@
+body {
+  font-family: sans-serif;
+}
+
+.custom-header {
+  background-image: linear-gradient(90deg, rgb(91, 118, 153), rgb(38, 7, 151));
+  color: white;
+  padding: 1.5rem;
+}
