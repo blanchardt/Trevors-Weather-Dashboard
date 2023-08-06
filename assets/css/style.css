@@ -8,3 +8,14 @@ body {
   color: white;
   padding: 1.5rem;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+/*provide custom styling for the button*/
+.custom-btn {
+  color: white;
+  background-color: #6ea1ee;
+  width: 100%
+}
