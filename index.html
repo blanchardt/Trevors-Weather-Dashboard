@@ -22,14 +22,29 @@
         <!--Create the column for the search box and the search history-->
         <div class="col-12 col-md-3 ms-3">
           <!--Create the form-->
-          <div class="mb-3">
-            <label for="formGroupExampleInput" class="display-6 form-label bold">Search for a City:</label>
-            <input type="text" class="form-control form-control-lg" id="formGroupExampleInput" placeholder="San Diego">
+          <form id="search-form">
+            <div class="mb-3">
+              <label for="form-city-name" class="display-6 form-label bold">Search for a City:</label>
+              <input type="text" class="form-control form-control-lg" id="form-city-name" name="form-city-name" placeholder="San Diego">
+            </div>
+            <div class="col-12 mb-3">
+              <button id="search-button" class="btn custom-btn full-width fs-5">Search</button>
+            </div>
+          </form>
+          <hr />
+          <!--Create temporary buttons for the search history-->
+          <div class="col-12 mb-3">
+            <button class="btn custom-secondary-btn full-width fs-5">Search</button>
           </div>
           <div class="col-12 mb-3">
-            <button class="btn custom-btn" type="submit">Submit form</button>
+            <button class="btn custom-secondary-btn full-width fs-5">Search</button>
           </div>
-          <hr />
+          <div class="col-12 mb-3">
+            <button class="btn custom-secondary-btn full-width fs-5">Search</button>
+          </div>
+          <div class="col-12 mb-3">
+            <button class="btn custom-secondary-btn full-width fs-5">Search</button>
+          </div>
         </div>
         <!--Create the column for the search results-->
         <div class="col-12 col-md-9 col-lg-7">

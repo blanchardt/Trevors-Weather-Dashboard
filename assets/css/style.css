@@ -17,5 +17,12 @@ body {
 .custom-btn {
   color: white;
   background-color: #6ea1ee;
-  width: 100%
+}
+
+.custom-secondary-btn {
+  background-color: rgb(150, 150, 150);
+}
+
+.full-width {
+  width: 100%;
 }
