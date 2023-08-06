@@ -1,5 +1,22 @@
-var searchForm = $('#search-form');
+var searchForm = $("#search-form");
+var searchHistory = $("#history");
 var previousResults = [];
+
+function renderSearchHistory() {
+    //create a button in a div element for each result in the array called previousResults.
+    for(var i = 0; i < previousResults.length; i++) {
+        var divEl = $("<div>");
+        divEl.addClass("mb-3");
+
+        var buttonEl = $("<button>");
+        buttonEl.addClass("btn custom-secondary-btn full-width fs-5");
+        buttonEl.text(previousResults[i]);
+
+        //append the div and the button to the history div.
+        divEl.append(buttonEl);
+        searchHistory.append(divEl);
+    }
+}
 
 function updateResults(event) {
     event.preventDefault();
@@ -9,7 +26,7 @@ function updateResults(event) {
     console.log(searchTarget);
 
     if (!searchTarget) {
-        alert('No city entered in the text box!');
+        alert("No city entered in the text box!");
         return;
     }
 
@@ -29,6 +46,9 @@ function updateResults(event) {
     localStorage.setItem("searched-Towns-and-Cities", JSON.stringify(previousResults));
 
     //call function to refresh search history buttons.
+    searchHistory.empty();
+    renderSearchHistory();
+
 }
 
 function initalizeFromLocalStorage() {
@@ -40,6 +60,7 @@ function initalizeFromLocalStorage() {
     console.log(previousResults);
 
     //call function to refresh search history buttons.
+    renderSearchHistory();
 }
 
 initalizeFromLocalStorage();
