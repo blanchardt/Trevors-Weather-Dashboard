@@ -18,7 +18,7 @@ function renderSearchHistory() {
     }
 }
 
-function updateResults(event) {
+function updateResultsForm(event) {
     event.preventDefault();
 
     var searchTarget = $('input[name="form-city-name"]').val();
@@ -31,6 +31,7 @@ function updateResults(event) {
     }
 
     //call a function to display the results.
+
 
     //add the input to the array and save it to local storage.
     //limit the results to only 10 at most.
@@ -51,6 +52,25 @@ function updateResults(event) {
 
 }
 
+//create a function for on click event for search history buttons.
+function updateResultsHistory (event) {
+    var buttonText = $(event.target).text();
+
+    //update the array and localstorage.
+    //went to https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string to figure out how to remove a
+    //specific element in an array.  Also credited in the README file.
+    previousResults.splice(previousResults.indexOf(buttonText), 1);
+
+    previousResults.unshift(buttonText);
+
+    localStorage.setItem("searched-Towns-and-Cities", JSON.stringify(previousResults));
+
+    //call function to display the results.
+
+    searchHistory.empty();
+    renderSearchHistory();
+}
+
 function initalizeFromLocalStorage() {
     var storedData = JSON.parse(localStorage.getItem("searched-Towns-and-Cities"));
     if (!storedData) {
@@ -65,4 +85,5 @@ function initalizeFromLocalStorage() {
 
 initalizeFromLocalStorage();
 
-searchForm.on('submit', updateResults);
+searchForm.on("submit", updateResultsForm);
+searchHistory.on("click", ".custom-secondary-btn", updateResultsHistory);
