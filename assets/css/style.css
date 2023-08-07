@@ -37,10 +37,22 @@ sup {
 
 .custom-card {
   flex: 0 0 auto;
-  width: 20%;
+  width: 100%;
   color: white;
 }
 
 .custom-background {
   background-color: rgba(21, 21, 68, 0.856);
+}
+
+@media screen and (min-width: 768px) {
+  .custom-card {
+    width: 33.33333333%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .custom-card {
+    width: 20%;
+  }
 }
