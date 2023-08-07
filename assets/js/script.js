@@ -26,20 +26,44 @@ function renderSearchHistory() {
     }
 }
 
-function getApi(value) {
+function getWeather(requestUrl) {
+    console.log(requestUrl);
+
+    fetch(requestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      });
+}
+
+function getCoords(value) {
+    //create variable to get the longitude and latitude of the inputted city.
     var fullRequestUrl = requestUrl + "q=" + value + key;
     console.log(fullRequestUrl);
+
+    //create variables for the next call that will be made.
+    var lat;
+    var lon;
     
     fetch(fullRequestUrl)
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
-        if(data.cod !== 200) {
+        if(data.cod != 200) {
             alert("Location not found");
+            actualCity = false;
             return;
         }
+        lat = data.city.coord.lat;
+        lon = data.city.coord.lon;
         console.log(data);
+        console.log(lat);
+        console.log(lon);
+        var locationRequestUrl = requestUrl + "lat=" + lat + "&lon=" + lon + key;
+        getWeather(locationRequestUrl);
       });
   }
 
@@ -113,4 +137,4 @@ initalizeFromLocalStorage();
 searchForm.on("submit", updateResultsForm);
 searchHistory.on("click", ".custom-secondary-btn", updateResultsHistory);
 
-getApi("boston");
+getCoords("boston");

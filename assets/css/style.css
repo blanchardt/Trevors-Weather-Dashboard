@@ -26,3 +26,21 @@ body {
 .full-width {
   width: 100%;
 }
+
+sup {
+  font-size: 100%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  top: 0em;
+}
+
+.custom-card {
+  flex: 0 0 auto;
+  width: 20%;
+  color: white;
+}
+
+.custom-background {
+  background-color: rgba(21, 21, 68, 0.856);
+}
