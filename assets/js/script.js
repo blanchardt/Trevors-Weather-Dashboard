@@ -1,6 +1,14 @@
+//variables for elements with specific ids.
 var searchForm = $("#search-form");
 var searchHistory = $("#history");
+var searchResult = $("#result");
+
+//variable array for search history.
 var previousResults = [];
+
+//store the url and api key in a variable.
+var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?";
+var key = "&appid=fdd1b1aa6ab52d23edf2439289749e1e";
 
 function renderSearchHistory() {
     //create a button in a div element for each result in the array called previousResults.
@@ -17,6 +25,23 @@ function renderSearchHistory() {
         searchHistory.append(divEl);
     }
 }
+
+function getApi(value) {
+    var fullRequestUrl = requestUrl + "q=" + value + key;
+    console.log(fullRequestUrl);
+    
+    fetch(fullRequestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        if(data.cod !== 200) {
+            alert("Location not found");
+            return;
+        }
+        console.log(data);
+      });
+  }
 
 function updateResultsForm(event) {
     event.preventDefault();
@@ -87,3 +112,5 @@ initalizeFromLocalStorage();
 
 searchForm.on("submit", updateResultsForm);
 searchHistory.on("click", ".custom-secondary-btn", updateResultsHistory);
+
+getApi("boston");
