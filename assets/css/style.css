@@ -27,14 +27,6 @@ body {
   width: 100%;
 }
 
-sup {
-  font-size: 100%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-  top: 0em;
-}
-
 .custom-card {
   flex: 0 0 auto;
   width: 100%;
