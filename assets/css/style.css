@@ -37,6 +37,8 @@ body {
   background-color: rgba(21, 21, 68, 0.856);
 }
 
+
+
 @media screen and (min-width: 768px) {
   .custom-card {
     width: 33.33333333%;
@@ -46,5 +48,15 @@ body {
 @media screen and (min-width: 992px) {
   .custom-card {
     width: 20%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .custom-right-padding {
+    padding-right: 1.5rem;
+  }
+  
+  .custom-left-padding {
+    padding-left: 1.5rem;
   }
 }

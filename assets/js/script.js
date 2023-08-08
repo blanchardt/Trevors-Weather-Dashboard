@@ -116,7 +116,7 @@ $(function() {
             for (var i = 8; i < data.list.length; i+=8) {
                 var result = data.list[i];
                 var cardDivEl = $("<div>");
-                cardDivEl.addClass("custom-card full-width");
+                cardDivEl.addClass("custom-card full-width mb-3");
 
                 var cardBodyEL = $("<div>");
                 cardBodyEL.addClass("card-body custom-background")
@@ -215,11 +215,41 @@ $(function() {
             return response.json();
         })
         .then(function (data) {
+            //check if actual location that was found.
             if(data.cod != 200) {
                 alert("Location not found");
                 actualCity = false;
                 return;
             }
+            //update the array and local storage.
+            var indexOfLocation = previousResults.indexOf(value);
+
+            if (indexOfLocation === -1) {
+                //limit the results to only 10 at most.
+                if(!(previousResults.length < 10)) {
+                    previousResults.pop();
+                }
+            }
+            else {
+                //went to https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string to figure out how to remove a
+                //specific element in an array.  Also credited in the README file.
+                //remove it from the location from the array.
+                previousResults.splice(indexOfLocation, 1);
+            }
+            
+            //add the value to the start of the array then store it in local storage.
+            previousResults.unshift(value);
+
+            localStorage.setItem("searched-Towns-and-Cities", JSON.stringify(previousResults));
+
+            searchHistory.empty();
+            renderSearchHistory();
+
+            
+            //reset the search result section.
+            searchResult.empty();
+
+            //get the values for the new url and call the function to populate the result section.
             lat = data.city.coord.lat;
             lon = data.city.coord.lon;
             console.log(data);
@@ -230,7 +260,7 @@ $(function() {
         });
     }
 
-    function updateResultsForm(event) {
+    function getFormText(event) {
         event.preventDefault();
 
         var searchTarget = $('input[name="form-city-name"]').val();
@@ -243,46 +273,22 @@ $(function() {
         }
 
         //call a function to display the results.
-
+        getCoords(searchTarget);
 
         //add the input to the array and save it to local storage.
-        //limit the results to only 10 at most.
-        if(previousResults.length < 10) {
-            previousResults.unshift(searchTarget);
-        }
-        else {
-            previousResults.pop();
-            previousResults.unshift(searchTarget);
-        }
         console.log(previousResults);
-
-        localStorage.setItem("searched-Towns-and-Cities", JSON.stringify(previousResults));
-
-        //call function to refresh search history buttons.
-        searchHistory.empty();
-        renderSearchHistory();
 
     }
 
     //create a function for on click event for search history buttons.
-    function updateResultsHistory (event) {
+    function getButtonText (event) {
         var buttonText = $(event.target).text();
 
-        //update the array and localstorage.
-        //went to https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string to figure out how to remove a
-        //specific element in an array.  Also credited in the README file.
-        previousResults.splice(previousResults.indexOf(buttonText), 1);
-
-        previousResults.unshift(buttonText);
-
-        localStorage.setItem("searched-Towns-and-Cities", JSON.stringify(previousResults));
-
         //call function to display the results.
-
-        searchHistory.empty();
-        renderSearchHistory();
+        getCoords(buttonText);
     }
 
+    //this gets the values from local storage then populates the history section.
     function initalizeFromLocalStorage() {
         var storedData = JSON.parse(localStorage.getItem("searched-Towns-and-Cities"));
         if (!storedData) {
@@ -297,8 +303,6 @@ $(function() {
 
     initalizeFromLocalStorage();
 
-    searchForm.on("submit", updateResultsForm);
-    searchHistory.on("click", ".custom-secondary-btn", updateResultsHistory);
-
-    getCoords("hooksett");
+    searchForm.on("submit", getFormText);
+    searchHistory.on("click", ".custom-secondary-btn", getButtonText);
 });
