@@ -203,8 +203,11 @@ $(function() {
                 }
             }
             else {
-                //went to https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string to figure out how to remove a
+                //Went to https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string to figure out how to remove a
                 //specific element in an array.  Also credited in the README file.
+                /*Rolando, Tyrannas, Rob W, enesn, qwertymk, Matt, siva gopi, Ali Soltani, Eliav Louski, hvgotcodes, Ben Clayton, Pawan  
+                    Dhangar, chepe263, &amp; dpmemcry. (2012, March 20). Javascript array search and remove string?. Stack Overflow. 
+                    https://stackoverflow.com/questions/9792927/javascript-array-search-and-remove-string */
                 //remove it from the location from the array.
                 previousResults.splice(indexOfLocation, 1);
             }
