@@ -14,8 +14,8 @@ The link to the repo for this project is located at: https://github.com/blanchar
 You can use this link to get to the live site: https://blanchardt.github.io/Trevors-Weather-Dashboard/   
 
 ## Credits  
-Modified by: Trevor Blanchard 
-API used: https://openweathermap.org/forecast5  
+Modified by: Trevor Blanchard   
+API used: https://openweathermap.org/forecast5   
 
 ### script.js:  
 
