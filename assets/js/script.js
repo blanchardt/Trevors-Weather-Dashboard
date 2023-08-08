@@ -55,16 +55,56 @@ $(function() {
         }
     }
 
+    //generate the cards that appear under the 5 day forecast text based off the provided info.
+    function generateCustomCard(divRowEl, listInfo) {
+        //create the elemnets for the card.
+        var cardDivEl = $("<div>");
+        cardDivEl.addClass("custom-card full-width");
+
+        var cardBodyEL = $("<div>");
+        cardBodyEL.addClass("card-body custom-background")
+
+        var date = dayjs(listInfo.dt_txt).format("M/D/YYYY");
+
+        var firstP = $("<p>");
+        firstP.addClass("bold");
+        firstP.text(date);
+
+        var secondP = $("<p>");
+        secondP.text(getWeatherSymbol(listInfo.weather[0]));
+
+        var thirdP = $("<p>");
+        thirdP.addClass("card-text");
+        thirdP.text("Temp: " + listInfo.main.temp + "°F");
+
+        var fourthP = $("<p>");
+        fourthP.addClass("card-text");
+        fourthP.text("Wind: " + listInfo.wind.speed);
+
+        var fifthP = $("<p>");
+        fifthP.addClass("card-text");
+        fifthP.text("Humidity: " + listInfo.main.humidity + "%");
+
+        //append it all to the row div.
+        cardBodyEL.append(firstP);
+        cardBodyEL.append(secondP);
+        cardBodyEL.append(thirdP);
+        cardBodyEL.append(fourthP);
+        cardBodyEL.append(fifthP);
+
+        cardDivEl.append(cardBodyEL);
+
+        divRowEl.append(cardDivEl);
+    }
+
     //populate the result section.
     function getWeather(requestUrl) {
-        console.log(requestUrl);
 
         fetch(requestUrl)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
 
             //do the first card (current day)
             var firstResult = data.list[0];
@@ -119,83 +159,13 @@ $(function() {
             //do the next 4 cards.
             for (var i = 8; i < data.list.length; i+=8) {
                 var result = data.list[i];
-                var cardDivEl = $("<div>");
-                cardDivEl.addClass("custom-card full-width mb-3");
-
-                var cardBodyEL = $("<div>");
-                cardBodyEL.addClass("card-body custom-background")
-
-                var date = dayjs(result.dt_txt).format("M/D/YYYY");
-
-                var firstP = $("<p>");
-                firstP.addClass("bold");
-                firstP.text(date);
-
-                var secondP = $("<p>");
-                secondP.text(getWeatherSymbol(result.weather[0]));
-
-                var thirdP = $("<p>");
-                thirdP.addClass("card-text");
-                thirdP.text("Temp: " + result.main.temp + "°F");
-
-                var fourthP = $("<p>");
-                fourthP.addClass("card-text");
-                fourthP.text("Wind: " + result.wind.speed);
-
-                var fifthP = $("<p>");
-                fifthP.addClass("card-text");
-                fifthP.text("Humidity: " + result.main.humidity + "%");
-
-                //append it all to the row div.
-                cardBodyEL.append(firstP);
-                cardBodyEL.append(secondP);
-                cardBodyEL.append(thirdP);
-                cardBodyEL.append(fourthP);
-                cardBodyEL.append(fifthP);
-
-                cardDivEl.append(cardBodyEL);
-
-                divRowEl.append(cardDivEl);
+                
+                generateCustomCard(divRowEl, result);
             }
             //do a final card for the final day.
             var finalResult = data.list[data.list.length - 1];
-            var finalCardDivEl = $("<div>");
-            finalCardDivEl.addClass("custom-card full-width");
-
-            var finalCardBodyEL = $("<div>");
-            finalCardBodyEL.addClass("card-body custom-background")
-
-            var finalDate = dayjs(finalResult.dt_txt).format("M/D/YYYY");
-
-            var finalCardFirstP = $("<p>");
-            finalCardFirstP.addClass("bold");
-            finalCardFirstP.text(finalDate);
-
-            var finalCardSecondP = $("<p>");
-            finalCardSecondP.text(getWeatherSymbol(finalResult.weather[0]));
-
-            var finalCardThirdP = $("<p>");
-            finalCardThirdP.addClass("card-text");
-            finalCardThirdP.text("Temp: " + finalResult.main.temp + "°F");
-
-            var finalCardFourthP = $("<p>");
-            finalCardFourthP.addClass("card-text");
-            finalCardFourthP.text("Wind: " + finalResult.wind.speed);
-
-            var finalCardFifthP = $("<p>");
-            finalCardFifthP.addClass("card-text");
-            finalCardFifthP.text("Humidity: " + finalResult.main.humidity + "%");
-
-            //append it all to the row div.
-            finalCardBodyEL.append(finalCardFirstP);
-            finalCardBodyEL.append(finalCardSecondP);
-            finalCardBodyEL.append(finalCardThirdP);
-            finalCardBodyEL.append(finalCardFourthP);
-            finalCardBodyEL.append(finalCardFifthP);
-
-            finalCardDivEl.append(finalCardBodyEL);
-
-            divRowEl.append(finalCardDivEl);
+            
+            generateCustomCard(divRowEl, finalResult);
 
             searchResult.append(divRowEl);
         });
@@ -207,7 +177,6 @@ $(function() {
     function getCoords(value) {
         //create variable to get the longitude and latitude of the inputted city.
         var fullRequestUrl = requestUrl + "q=" + value + key;
-        console.log(fullRequestUrl);
 
         //create variables for the next call that will be made.
         var lat;
@@ -255,9 +224,6 @@ $(function() {
             //get the values for the new url and call the function to populate the result section.
             lat = data.city.coord.lat;
             lon = data.city.coord.lon;
-            console.log(data);
-            console.log(lat);
-            console.log(lon);
             var locationRequestUrl = requestUrl + "units=imperial&lat=" + lat + "&lon=" + lon + key;
             getWeather(locationRequestUrl);
         });
@@ -269,7 +235,6 @@ $(function() {
 
         var searchTarget = formTextField.val();
 
-        console.log(searchTarget);
 
         if (!searchTarget) {
             alert("No city entered in the text box!");
@@ -281,10 +246,6 @@ $(function() {
 
         //remove text from the form field
         formTextField.val("");
-
-        //add the input to the array and save it to local storage.
-        console.log(previousResults);
-
     }
 
     //create a function for on click event for search history buttons.
@@ -302,7 +263,6 @@ $(function() {
             return;
         }
         previousResults = storedData;
-        console.log(previousResults);
 
         //call function to refresh search history buttons.
         renderSearchHistory();
