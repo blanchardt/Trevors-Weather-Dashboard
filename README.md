@@ -4,9 +4,9 @@ Use APIs to create a Weather Dashboard.
 ## Project Description
 Using the "5 day weather forecast" weather information will be provided on towns and cities.  The info that will be displayed based off the buttton that was pressed or the text that was inputed.  
 Initial page:  
-![The Weather Dashboard opened for the first time.  text that says Weather Dashboard and Search for a City on the page.](image-2.png)  
+![The Weather Dashboard opened for the first time.  text that says Weather Dashboard and Search for a City on the page.](./assets/images/initial-load.png)  
 Page With Results:  
-![The Weather Dashboard Page with results from San Diego showing the weather from 8/8/2023 and the next 5 days of weather](image.png)  
+![The Weather Dashboard Page with results from San Diego showing the weather from 8/8/2023 and the next 5 days of weather](./assets/images/colorado-results.png)  
 
 
 ## How to Get to the Page  
