@@ -13,6 +13,7 @@ $(function() {
     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?";
     var key = "&appid=fdd1b1aa6ab52d23edf2439289749e1e";
 
+    //render the search history.
     function renderSearchHistory() {
         //create a button in a div element for each result in the array called previousResults.
         for(var i = 0; i < previousResults.length; i++) {
@@ -29,6 +30,7 @@ $(function() {
         }
     }
 
+    //determine the weather symbol to display.
     function getWeatherSymbol(forecast) {
         if (forecast.main == "Clear") {
             return "☀️";
@@ -53,6 +55,7 @@ $(function() {
         }
     }
 
+    //populate the result section.
     function getWeather(requestUrl) {
         console.log(requestUrl);
 
@@ -195,13 +198,12 @@ $(function() {
             divRowEl.append(finalCardDivEl);
 
             searchResult.append(divRowEl);
-
-            console.log(data.list[data.list.length - 1]);
-            console.log(data.city.name);
         });
         
     }
 
+    //get the cordinates from the location name then update the search history and then call a function
+    //to update the reulst section.
     function getCoords(value) {
         //create variable to get the longitude and latitude of the inputted city.
         var fullRequestUrl = requestUrl + "q=" + value + key;
@@ -261,6 +263,7 @@ $(function() {
         });
     }
 
+    //get the text in the input field then call the unction to populate the results and section a
     function getFormText(event) {
         event.preventDefault();
 

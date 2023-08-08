@@ -1,3 +1,4 @@
+/*define the font for the entire page*/
 body {
   font-family: sans-serif;
 }
@@ -9,11 +10,16 @@ body {
   padding: 1.5rem;
 }
 
+/*styles for generic classes*/
 .bold {
   font-weight: bold;
 }
 
-/*provide custom styling for the button*/
+.full-width {
+  width: 100%;
+}
+
+/*provide custom styling for the button, and cards*/
 .custom-btn {
   color: white;
   background-color: #6ea1ee;
@@ -21,10 +27,6 @@ body {
 
 .custom-secondary-btn {
   background-color: rgb(150, 150, 150);
-}
-
-.full-width {
-  width: 100%;
 }
 
 .custom-card {
@@ -38,7 +40,7 @@ body {
 }
 
 
-
+/*update the width to appropriate lengths on bigger screens*/
 @media screen and (min-width: 768px) {
   .custom-card {
     width: 33.33333333%;
@@ -51,6 +53,7 @@ body {
   }
 }
 
+/*add padding to the right and left of certain columns to add spacing away from the edge of the screen.*/
 @media screen and (max-width: 768px) {
   .custom-right-padding {
     padding-right: 1.5rem;
