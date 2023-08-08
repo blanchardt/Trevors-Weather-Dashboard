@@ -4,6 +4,7 @@ $(function() {
     var searchForm = $("#search-form");
     var searchHistory = $("#history");
     var searchResult = $("#result");
+    var formTextField = $("#form-city-name")
 
     //variable array for search history.
     var previousResults = [];
@@ -263,7 +264,7 @@ $(function() {
     function getFormText(event) {
         event.preventDefault();
 
-        var searchTarget = $('input[name="form-city-name"]').val();
+        var searchTarget = formTextField.val();
 
         console.log(searchTarget);
 
@@ -274,6 +275,9 @@ $(function() {
 
         //call a function to display the results.
         getCoords(searchTarget);
+
+        //remove text from the form field
+        formTextField.val("");
 
         //add the input to the array and save it to local storage.
         console.log(previousResults);
